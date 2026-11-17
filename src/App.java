@@ -22,6 +22,7 @@ public class App extends JFrame implements ActionListener, ListSelectionListener
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setSize(700, 460);
         setLocationRelativeTo(null);
+        
         tabel.setDefaultEditor(Object.class, null);
         tabel.setSelectionBackground(SAND);
         tabel.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -30,6 +31,7 @@ public class App extends JFrame implements ActionListener, ListSelectionListener
         tabel.getSelectionModel().addListSelectionListener(this);
         bar.setStringPainted(true);
         bar.setForeground(TERRACOTTA);
+
         JPanel panelTombol = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 5));
         for (String nama : new String[] {"Tambah", "Edit", "Hapus", "Update Episode"}) {
             JButton tombol = new JButton(nama);
@@ -38,13 +40,15 @@ public class App extends JFrame implements ActionListener, ListSelectionListener
             tombol.addActionListener(this);
             panelTombol.add(tombol);
         }
+
         JPanel bawah = new JPanel(new GridLayout(2, 1, 0, 6));
         bawah.setBorder(BorderFactory.createEmptyBorder(8, 15, 8, 15));
         bawah.add(bar);
         bawah.add(panelTombol);
-        getContentPane().setLayout(new BorderLayout(0, 8));
-        getContentPane().add(new JScrollPane(tabel), BorderLayout.CENTER);
-        getContentPane().add(bawah, BorderLayout.SOUTH);
+        
+        setLayout(new BorderLayout(0, 8));
+        add(new JScrollPane(tabel), BorderLayout.CENTER);
+        add(bawah, BorderLayout.SOUTH);
         daftar.add(new Object[] {"Goblin", 16, 10, 0, false});
         isiTabel();
     }
@@ -89,11 +93,13 @@ public class App extends JFrame implements ActionListener, ListSelectionListener
         JTextField txtJudul = new JTextField(String.valueOf(lama[0]), 18);
         JTextField txtTotal = new JTextField(String.valueOf(lama[1]));
         JTextField txtEpisode = new JTextField(String.valueOf(lama[2]));
+
         JComboBox<String> cmbRating = new JComboBox<>(new String[] {
             "Belum dirating", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10"});
         JComboBox<String> cmbStatus = new JComboBox<>(new String[] {"Otomatis", "Dropped"});
         cmbRating.setSelectedIndex((int) lama[3]);
         cmbStatus.setSelectedIndex((boolean) lama[4] ? 1 : 0);
+        
         String[] label = {"Judul", "Total episode", "Episode terakhir", "Rating (1-10)", "Status"};
         Component[] isian = {txtJudul, txtTotal, txtEpisode, cmbRating, cmbStatus};
         JPanel form = new JPanel(new GridLayout(0, 2, 8, 8));
@@ -101,6 +107,7 @@ public class App extends JFrame implements ActionListener, ListSelectionListener
             form.add(new JLabel(label[i]));
             form.add(isian[i]);
         }
+        
         while (JOptionPane.showConfirmDialog(this, form, baris == -1 ? "Tambah Drama" : "Edit Drama",
                 JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE) == JOptionPane.OK_OPTION) {
             try {
